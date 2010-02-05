@@ -1,0 +1,54 @@
+name: Action Stream: News Feed
+id: ASNewsfeed
+key: ASNewsfeed
+author_link: http://uinnovations.com/
+author_name: 'Dan Wolfgang, uiNNOVATIONS'
+description: 'Republish an RSS or Atom newsfeed.'
+icon: feed.png
+version: 1.0
+schema_version: 4
+
+profile_services:
+    newsfeedrss:
+        name: 'Newsfeed (RSS)'
+        url: '{{ident}}'
+        ident_label: 'Feed URL'
+        can_many: 1
+        ident_exact: 1
+        service_type: blog
+        icon: feed.png
+    newsfeedatom:
+        name: 'Newsfeed (Atom)'
+        url: '{{ident}}'
+        ident_label: 'Feed URL'
+        can_many: 1
+        ident_exact: 1
+        service_type: blog
+        icon: feed.png
+
+action_streams:
+    newsfeedrss:
+        posted:
+            name: Posts
+            description: 'Items from the supplied RSS feed service.'
+            html_form: '[_1] posted <a href="[_2]">[_3]</a> from <a href="[_4]">[_5]</a>'
+            html_params:
+                - url
+                - title
+                - source_url
+                - source_title
+            url: '{{ident}}'
+            class: ASNewsfeed::Event::RSS
+    newsfeedatom:
+        posted:
+            name: Posts
+            description: 'Items from the supplied Atom feed service.'
+            html_form: '[_1] posted <a href="[_2]">[_3]</a> from <a href="[_4]">[_5]</a>'
+            html_params:
+                - url
+                - title
+                - source_url
+                - source_title
+            url: '{{ident}}'
+            class: ASNewsfeed::Event::Atom
+
